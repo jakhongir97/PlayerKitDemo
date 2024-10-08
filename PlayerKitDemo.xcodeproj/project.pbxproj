@@ -14,7 +14,6 @@
 		322230DA2CB3C7DF00F8D3E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 322230D92CB3C7DF00F8D3E2 /* Assets.xcassets */; };
 		322230DE2CB3C7DF00F8D3E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 322230DD2CB3C7DF00F8D3E2 /* Preview Assets.xcassets */; };
 		326B08452CB3C95400447453 /* PlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 326B08442CB3C95400447453 /* PlayerKit */; };
-		32ABFC352CB5418B001A2423 /* VLCPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ABFC342CB5418B001A2423 /* VLCPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +25,6 @@
 		322230D92CB3C7DF00F8D3E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		322230DB2CB3C7DF00F8D3E2 /* PlayerKitDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayerKitDemo.entitlements; sourceTree = "<group>"; };
 		322230DD2CB3C7DF00F8D3E2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		32ABFC342CB5418B001A2423 /* VLCPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +62,6 @@
 				322230D72CB3C7DE00F8D3E2 /* ContentView.swift */,
 				320F5F312CB40EBF00333F52 /* AVPlayerViewRepresentable.swift */,
 				320F5F332CB40EDB00333F52 /* VLCPlayerViewRepresentable.swift */,
-				32ABFC342CB5418B001A2423 /* VLCPlayerView.swift */,
 				322230D92CB3C7DF00F8D3E2 /* Assets.xcassets */,
 				322230DB2CB3C7DF00F8D3E2 /* PlayerKitDemo.entitlements */,
 				322230DC2CB3C7DF00F8D3E2 /* Preview Content */,
@@ -157,7 +154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				320F5F342CB40EDB00333F52 /* VLCPlayerViewRepresentable.swift in Sources */,
-				32ABFC352CB5418B001A2423 /* VLCPlayerView.swift in Sources */,
 				320F5F322CB40EBF00333F52 /* AVPlayerViewRepresentable.swift in Sources */,
 				322230D82CB3C7DE00F8D3E2 /* ContentView.swift in Sources */,
 				322230D62CB3C7DE00F8D3E2 /* PlayerKitDemoApp.swift in Sources */,

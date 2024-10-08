@@ -21,12 +21,10 @@ struct VLCPlayerViewRepresentable: UIViewRepresentable {
         player.drawable = uiView
     }
 
-    // Add this to handle view removal or player cleanup
+    // Handle view removal or player cleanup
     static func dismantleUIView(_ uiView: UIView, coordinator: ()) {
-        // Release VLC resources when the view is removed
         if let player = uiView.layer.sublayers?.first as? VLCMediaPlayer {
             player.stop()
         }
     }
 }
-
