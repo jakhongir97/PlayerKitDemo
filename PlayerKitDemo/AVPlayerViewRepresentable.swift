@@ -2,39 +2,40 @@ import SwiftUI
 import AVFoundation
 import UIKit
 
-struct AVPlayerViewRepresentable: UIViewRepresentable {
-    var player: AVPlayer
+class PlayerUIView: UIView {
+    private var playerLayer: AVPlayerLayer?
 
-    func makeUIView(context: Context) -> UIView {
-        let view = UIView()
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspect
-        playerLayer.frame = view.bounds
-        view.layer.addSublayer(playerLayer)
-        
-        // Update the playerLayer when the view's bounds change
-        context.coordinator.playerLayer = playerLayer
-
-        return view
-    }
-
-    func updateUIView(_ uiView: UIView, context: Context) {
-        // Adjust the player layer frame if the view size changes
-        context.coordinator.playerLayer?.frame = uiView.bounds
-    }
-
-    // Coordinator to handle player layer updates
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject {
-        var playerLayer: AVPlayerLayer?
-
-        init(_ parent: AVPlayerViewRepresentable) {
-            super.init()
+    var player: AVPlayer? {
+        didSet {
+            if let player = player {
+                playerLayer?.removeFromSuperlayer()  // Remove existing playerLayer
+                let newPlayerLayer = AVPlayerLayer(player: player)
+                newPlayerLayer.videoGravity = .resizeAspect
+                newPlayerLayer.frame = self.bounds
+                self.layer.addSublayer(newPlayerLayer)
+                self.playerLayer = newPlayerLayer
+            }
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Adjust playerLayer to match the view's bounds when the view is resized
+        playerLayer?.frame = self.bounds
     }
 }
 
+struct AVPlayerViewRepresentable: UIViewRepresentable {
+    var player: AVPlayer
+
+    func makeUIView(context: Context) -> PlayerUIView {
+        let view = PlayerUIView()
+        view.player = player
+        return view
+    }
+
+    func updateUIView(_ uiView: PlayerUIView, context: Context) {
+        uiView.player = player
+    }
+}
 
