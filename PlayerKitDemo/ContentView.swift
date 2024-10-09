@@ -3,9 +3,9 @@ import PlayerKit
 
 struct ContentView: View {
     // Use your real HLS URL
-    let videoURL = URL(string: "https://st2.itv.uz/2/hls/map/ftp15/2023/vod/k/l/0c5b99cc49a587aed38d2a8a66c131bd/master.m3u8?token=CTY6HMiZZcNO21ZjvGaUHA&e=1728402684&traffic=0&uid=1060697&device=IOS&ip=10.32.120.2&mode=mapped")!
+    let videoURL = URL(string: "https://st2.itv.uz/2/hls/map/ftp15/2023/vod/k/l/0c5b99cc49a587aed38d2a8a66c131bd/master.m3u8?token=I4zoTH4GmoTN4mfHK-mmzA&e=1728478801&traffic=0&uid=1060697&device=IOS&ip=10.32.120.2&mode=mapped")!
 
-    @StateObject var playerManager = PlayerManager()
+    @ObservedObject var playerManager = PlayerManager.shared
     @State private var selectedPlayerType: PlayerType = .vlcPlayer  // Default to VLC Player
 
     var body: some View {
@@ -52,8 +52,7 @@ struct ContentView: View {
                         VLCPlayerViewRepresentable(player: currentPlayer.player)
                             .frame(height: 300)  // Set fixed height for the video view
                             .onAppear {
-                                playerManager.load(url: videoURL)  // Load and play video when the view appears
-                                playerManager.play()
+                                playerManager.load(url: videoURL)  // Load and refresh tracks
                             }
                     }
                 } else if selectedPlayerType == .avPlayer {
@@ -61,8 +60,7 @@ struct ContentView: View {
                         AVPlayerViewRepresentable(player: player)
                             .frame(height: 300)  // Set fixed height for the video view
                             .onAppear {
-                                playerManager.load(url: videoURL)  // Load and play video when the view appears
-                                playerManager.play()
+                                playerManager.load(url: videoURL)  // Load and refresh tracks
                             }
                     } else {
                         // Fallback for when AVPlayer isn't initialized
@@ -140,8 +138,7 @@ struct ContentView: View {
         .padding()
         .onAppear {
             playerManager.setPlayer(type: selectedPlayerType)  // Set the default player type when the view appears
-            playerManager.load(url: videoURL)                  // Load the video when the view appears
-            playerManager.play()                               // Auto-play the video
+            playerManager.load(url: videoURL)                  // Load the video and auto-fetch tracks
         }
     }
 
@@ -152,7 +149,6 @@ struct ContentView: View {
         playerManager.selectedSubtitleTrackIndex = nil
         playerManager.setPlayer(type: type)
         playerManager.load(url: videoURL)
-        playerManager.play()
     }
 }
 
