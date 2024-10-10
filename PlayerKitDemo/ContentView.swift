@@ -9,32 +9,13 @@ struct ContentView: View {
     @State private var selectedPlayerType: PlayerType = .vlcPlayer  // Default to VLC Player
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            // List to select player type (VLCPlayer or AVPlayer)
-            List {
-                Section(header: Text("Select Player")) {
-                    ForEach([PlayerType.vlcPlayer, PlayerType.avPlayer], id: \.self) { playerType in
-                        Button(action: {
-                            selectPlayer(type: playerType)
-                        }) {
-                            HStack {
-                                Text(playerType.title)  // Use the title property instead of rawValue
-                                Spacer()
-                                if selectedPlayerType == playerType {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(.blue)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .listStyle(InsetGroupedListStyle())
-            .frame(height: 150)
+        VStack(spacing: 16) {
+            // Player Type Selection List
+            playerSelectionList()
 
-            // Use PlayerView to render the appropriate player
+            // Render the player
             PlayerView()
-                .frame(height: 300)  // Set fixed height for the video view
+                .frame(height: 300)
                 .onAppear {
                     playerManager.load(url: videoURL)  // Load and refresh tracks
                 }
@@ -43,16 +24,44 @@ struct ContentView: View {
         }
         .padding()
         .onAppear {
-            playerManager.setPlayer(type: selectedPlayerType)  // Set the default player type
-            playerManager.load(url: videoURL)                  // Load the video and auto-fetch tracks
+            setupPlayer()
         }
     }
 
-    // Function to handle player type selection
+    // MARK: - Player Selection List
+    private func playerSelectionList() -> some View {
+        List {
+            Section(header: Text("Select Player")) {
+                ForEach([PlayerType.vlcPlayer, PlayerType.avPlayer], id: \.self) { playerType in
+                    Button(action: {
+                        selectPlayer(type: playerType)
+                    }) {
+                        HStack {
+                            Text(playerType.title)
+                            Spacer()
+                            if selectedPlayerType == playerType {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .frame(height: 150)
+    }
+
+    // MARK: - Setup Player
+    private func setupPlayer() {
+        playerManager.setPlayer(type: selectedPlayerType)
+        playerManager.load(url: videoURL)
+    }
+
+    // MARK: - Handle Player Type Selection
     private func selectPlayer(type: PlayerType) {
         selectedPlayerType = type
-        playerManager.setPlayer(type: type)
-        playerManager.load(url: videoURL)
+        setupPlayer()  // Re-setup player with new type
     }
 }
 
