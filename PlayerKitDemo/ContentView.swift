@@ -13,12 +13,15 @@ struct ContentView: View {
             // Player Type Selection List
             playerSelectionList()
 
-            // Render the player
-            PlayerView()
-                .frame(height: 300)
-                .onAppear {
-                    playerManager.load(url: videoURL)  // Load and refresh tracks
-                }
+            // Render the player with dynamic width and height, keeping a 16:9 aspect ratio
+            GeometryReader { geometry in
+                PlayerView()
+                    .frame(width: geometry.size.width, height: geometry.size.width * 9 / 16)  // 16:9 aspect ratio
+                    .onAppear {
+                        playerManager.load(url: videoURL)  // Load and refresh tracks
+                    }
+            }
+            .frame(maxHeight: .infinity)
 
             Spacer()
         }
