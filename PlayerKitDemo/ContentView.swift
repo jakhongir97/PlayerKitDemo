@@ -3,7 +3,7 @@ import PlayerKit
 
 struct ContentView: View {
     // Use your real HLS URL
-    let videoURL = URL(string: "https://storage4.itv.uz/2/hls/ftp15/2023/video/k/l/cbb6cb0e90bd444df3caf3f57fdbe82c.mp4/master.m3u8")!
+    let videoURL = URL(string: "https://ftp18m.cinerama.uz/hls/converted/20241001/647c3f8b1002351900d10e6df3794b40.mp4/playlist.m3u8?token=3IfdgHsQXOILgSRdQjo5_w&expires=1729107992&ip=10.32.120.2")!
 
     @ObservedObject var playerManager = PlayerManager.shared
     @State private var selectedPlayerType: PlayerType = .vlcPlayer  // Default to VLC Player
