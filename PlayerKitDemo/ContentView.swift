@@ -41,7 +41,7 @@ struct ContentView: View {
             .font(.title)
         }
         .fullScreenCover(isPresented: $isPlayerPresented) {
-            PlayerView(playerItems: playerItems)
+            PlayerView(playerItem: playerItem)
         }
     }
 }
